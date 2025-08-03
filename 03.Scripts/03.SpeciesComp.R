@@ -1,5 +1,5 @@
 ################################################################################
-######################## Ashlynn Smith #########################################
+######################## Ashlynn N. Smith ######################################
 ################## Script to Visualize and Analyze #############################
 ############# Plant Species Composition Data : EPA Project  ####################
 
@@ -120,6 +120,15 @@ set.seed(1986)
 all.mds <- metaMDS(all.sites)
 all.mds
 
+# running the NMDS with k=3 (3 dimensions) to see if it improves fit 
+
+set.seed(1986)
+all.mds2 <- metaMDS(all.sites, k=3, autotransform=TRUE)
+all.mds2
+
+# k=3 reduces stress from 0.22 to 0.15 # For publication, I may visualize 
+# this in 3D, but I am going to leave it for now
+
 data.scores <- as.data.frame(scores(all.mds)) 
 data.scores$ID <- rownames(data.scores)  
 data.scores <- inner_join(data.scores, MetaData) 
@@ -145,6 +154,9 @@ Pair_Results_TRT <- Pair_Results_TRT %>%
 # BH adjustment = Benjamini & Hochberg (1995) 
 # The BH adjustment, along with every other adjustment method is less conservative than 
 # Bonforonni 
+
+# Saved this file for creating a pairwise table for Publication
+write_csv(Pair_Results_TRT, "02.CleanData/CompData_Pairwise.csv")
 
 ########################## Don't think this code is Needed ######################
 #dis <- vegdist(all.sites)

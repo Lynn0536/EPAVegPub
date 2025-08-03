@@ -332,6 +332,11 @@ PairsGramMod_All <- emmeans(GramMod4, ~Treatment*Year, type='response')
 pairs(PairsGramMod_All)
 CI_Letters <- cld(PairsGramMod_All, Letters=letters, sort=TRUE, decreasing=TRUE)
 
+# Pairwise Treatment | Year 
+PairsGramMod <- emmeans(GramMod4, ~Treatment|Year, type='response') 
+pairs(PairsGramMod)
+CI_Letters <- cld(PairsGramMod, Letters=letters, sort=TRUE, decreasing=TRUE)
+
 # Graminoid Means Table 
 
 GramTable <- summarySE(GramData, measurevar="Gram_Cover", groupvars=c("Treatment", "Year")) 
